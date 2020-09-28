@@ -10,7 +10,7 @@
  * 
  *       [http://huntmarketing.com.br] 
  * 
- *        @version 1.0
+ *        @version 1.1
  *        @author
  *          ┏━━━┓━━┳━━━━┓━━━┓━━┓━┓
  *          ┃ ┏┓┃ ┃┃┃ ┓┓┃┃━┓┃ ┳┛ ┃
@@ -19,30 +19,53 @@
  *        @description
  *          Script auxiliar do Robô Hunter
  *          Usado para computar cliques dos perfis no FB      
- *                                                                               
+ *        @client 
+ *          -> my_client_here <-  
+ *                                                            
  * 
  */
+
+
+
+/*
+    PARA TESTES ------ apague esse comentário depois
+    const _ATUAL_URL = 'minha_url_para_test/slug/id_fb'.trim(),
+    use o id do FB -> andrei.coelho.5 <- na url
+*/
+
+
+
+
 // CONFIG INICIAL
-//const _ATUAL_URL         = 'minha_url_para_test/slug/id_fb'.trim(); // para testes... apague depois
-const _ATUAL_URL         = window.location.href.trim();
-const _API_URL_HUNT      = "http://huntmarketing.com.br/api/";
+const _ATUAL_URL         = window.location.href.trim(),
+      _API_URL_HUNT      = "http://huntmarketing.com.br/api/";
 
 // CONFIG CLIENTE
-const _DATA_CLIENT_NAME  = "my_client";
-const _BG_COLOR_TEMPLAT  = "#333";
+const _DATA_CLIENT_NAME  = "my_client_here",
+      _BG_COLOR_TEMPLAT  = "#333";
 
 // CONFIG DA EXPRESSÃO REGULAR PARA ENVIO DE INFORMAÇÕES
-const _expression        = /([^\s]{3,})/g;
-const _grupos            = _expression.exec(_ATUAL_URL);
+const _expression        = /slug\/([^\s]{3,})/g,
+      _grupos            = _expression.exec(_ATUAL_URL);
 
-if(_grupos) _hunt_save_access_id(_grupos);
+// CONFIG DAS INFORMAÇÕES QUE SERÃO ENVIADAS
+const _infos = _grupos ? {
 
+        slug:"geral",
+        idFB:_grupos[1]
+
+    } : false,
+    
+var urAPI  = _API_URL_HUNT + _DATA_CLIENT_NAME + "/save_access/" + _infos.slug + "/" + _infos.idFB;
+
+
+
+
+
+if(_infos) _hunt_save_access_id(_infos);
 var statusD = false;
 
 function _hunt_save_access_id(_grupos) {
-
-    let slug    = "geral", idFB = _grupos[1],
-        urAPI   = _API_URL_HUNT + _DATA_CLIENT_NAME + "/save_access/" + slug + "/" + idFB;
 
     var script  = document.createElement('script');
     script.src  = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
@@ -59,7 +82,7 @@ function _hunt_save_access_id(_grupos) {
 
             success: function (response) {
                 if(response.error == false){
-                    let template = _hunt_generateMessageBoasVindas(response.user);
+                    let template = _hunt_generateMessageBoasVindas(response.user.nome);
                     $('body').append(template);
                     $("#close_toast_"+_DATA_CLIENT_NAME).click(function(){
                         _hunt_close();
@@ -81,7 +104,6 @@ function _hunt_dismiss() {
         _hunt_close();
     }, 5000);
 }
-
 
 function _hunt_close(){
 
@@ -107,6 +129,7 @@ function _hunt_close(){
 
 function _hunt_generateMessageBoasVindas(nome){
     return `<div id="toast_${_DATA_CLIENT_NAME}" style="
+        font-family: Arial,Helvetica,sans-serif;
         min-width: 250px;
         margin-left: -125px;
         background-color: ${_BG_COLOR_TEMPLAT};
@@ -125,7 +148,7 @@ function _hunt_generateMessageBoasVindas(nome){
         height: 10px;
         text-align: right;
     ">  
-        <p style="position: relative; top: -20px; text-align: center; width: 100%;">Olá ${nome}, seja bem vindo!</p>
+        <p style="position: relative; top: -20px; text-align: center; width: 100%;">Olá <b>${nome}</b>, seja bem vindo!</p>
         <span id="close_toast_${_DATA_CLIENT_NAME}" style="
             width: 10px; height: 10px;
             position: relative; top: -75px;
