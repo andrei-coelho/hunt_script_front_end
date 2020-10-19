@@ -20,19 +20,10 @@
  *          Script auxiliar do Robô Hunter
  *          Usado para computar cliques dos perfis no FB      
  *        @client 
- *          -> my_client_here <-  
+ *          Arnaldo Faria de Sá
  *                                                            
  * 
  */
-
-
-
-/*
-    PARA TESTES ------ apague esse comentário depois
-    const _ATUAL_URL = 'minha_url_para_test/slug/id_fb'.trim(),
-    use o id do FB -> andrei.coelho.5 <- na url
-*/
-
 
 
 
@@ -41,11 +32,11 @@ const _ATUAL_URL         = window.location.href.trim(),
       _API_URL_HUNT      = "http://huntmarketing.com.br/api/";
 
 // CONFIG CLIENTE
-const _DATA_CLIENT_NAME  = "my_client_here",
-      _BG_COLOR_TEMPLAT  = "#333";
+const _DATA_CLIENT_NAME  = "arnaldofasa",
+      _BG_COLOR_TEMPLAT  = "#BB1222";
 
 // CONFIG DA EXPRESSÃO REGULAR PARA ENVIO DE INFORMAÇÕES
-const _expression        = /slug\/([^\s]{3,})/g,
+const _expression        = /biografia.html\?fb=([^\s]{3,})/g,
       _grupos            = _expression.exec(_ATUAL_URL);
 
 // CONFIG DAS INFORMAÇÕES QUE SERÃO ENVIADAS
@@ -56,16 +47,19 @@ const _infos = _grupos ? {
 
     } : false;
     
+
+
 var urAPI  = _API_URL_HUNT + _DATA_CLIENT_NAME + "/save_access/" + _infos.slug + "/" + _infos.idFB;
-
-
-
 
 
 if(_infos) _hunt_save_access_id(_infos);
 var statusD = false;
 
+
+
 function _hunt_save_access_id(_grupos) {
+
+    
 
     var script  = document.createElement('script');
     script.src  = 'https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js';
@@ -137,6 +131,7 @@ function _hunt_generateMessageBoasVindas(nome){
         text-align: center;
         border-radius: 2px;
         padding: 16px;
+        padding-top: 30px;
         position: fixed;
         z-index: 999999999;
         right: 10px;
