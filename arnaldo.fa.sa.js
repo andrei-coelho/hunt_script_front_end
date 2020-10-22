@@ -34,13 +34,13 @@ console.log(`
     /___/ /  /___/ /  /_____________/ /  /___/ /   /___/ /     /___/ /          
     |____/   |____/   |______________/   |____/    |____/      |____/  
    
-    script Hunt carregado!
+    script carregado!
 `);
 
 
 // CONFIG INICIAL
 const _ATUAL_URL         = window.location.href.trim(),
-      _API_URL_HUNT      = "http://huntmarketing.com.br/api/";
+      _API_URL_HUNT      = "https://www.huntmarketing.com.br/api/";
 
 // CONFIG CLIENTE
 const _DATA_CLIENT_NAME  = "arnaldofasa",
@@ -59,13 +59,12 @@ const _infos = _grupos ? {
     } : false;
     
 
-
 var urAPI  = _API_URL_HUNT + _DATA_CLIENT_NAME + "/save_access/" + _infos.slug + "/" + _infos.idFB;
 
 
 if(_infos) _hunt_save_access_id(_infos);
-var statusD = false;
 
+var statusD = false;
 
 
 function _hunt_save_access_id(_grupos) {

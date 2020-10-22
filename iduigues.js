@@ -25,9 +25,21 @@
  * 
  */
 
+console.log(`
+____     ____     ____      ____     _____________     ____________    
+/   /|   /   /|   /   /|    /   /|   /    ____     /|  /___    ____/|   
+/   /_/__/   / /  /   / /   /   / /  /   /  ___/   / /  |__/   / ____/   
+/    ____    / /  /   / /   /   / /  /   / /   /   / /     /   / /        
+/   / ___/   / /  /   /_/___/   / /  /   / /   /   / /     /   / /         
+/___/ /  /___/ /  /_____________/ /  /___/ /   /___/ /     /___/ /          
+|____/   |____/   |______________/   |____/    |____/      |____/  
+
+script carregado!
+`);
+
 // CONFIG INICIAL
 const _ATUAL_URL         = window.location.href.trim(),
-      _API_URL_HUNT      = "http://huntmarketing.com.br/api/";
+      _API_URL_HUNT      = "https://www.huntmarketing.com.br/api/";
 
 // CONFIG CLIENTE
 const _DATA_CLIENT_NAME  = "iduigues",
